@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EFCoreParkbeheer.BL\EFCoreParkbeheer.BL.csproj" />
+    <ProjectReference Include="..\EFCoreParkbeheer.DL\EFCoreParkbeheer.DL.csproj" />
+  </ItemGroup>
+
 </Project>
