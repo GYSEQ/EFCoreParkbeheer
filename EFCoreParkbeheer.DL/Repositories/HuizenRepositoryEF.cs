@@ -30,7 +30,7 @@ namespace EFCoreParkbeheer.DL.Repositories
             throw new NotImplementedException();
         }
 
-        public Huis VoegHuisToe(Huis h)
+        public void VoegHuisToe(Huis h)
         {
             throw new NotImplementedException();
         }

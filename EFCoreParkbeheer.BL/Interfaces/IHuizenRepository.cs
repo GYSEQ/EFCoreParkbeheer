@@ -12,7 +12,7 @@ namespace EFCoreParkbeheer.BL.Interfaces
         bool HeeftHuis(string straat, int nummer, Park park);
         void VoegHuisToe(Huis huis);
         bool HeeftHuis(int id);
-        void updateHuis(Huis huis);
-        Huis GeeftHuis(int id);
+        void UpdateHuis(Huis huis);
+        Huis GeefHuis(int id);
     }
 }

@@ -1,5 +1,7 @@
 ﻿using EFCoreParkbeheer.BL.Interfaces;
 using EFCoreParkbeheer.BL.Model;
+using EFCoreParkbeheer.DL.Mappers;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +12,17 @@ namespace EFCoreParkbeheer.DL.Repositories
 {
     public class ContractenRepositoryEF : IContractenRepository
     {
+        private ParkbeheerContext _context = new ParkbeheerContext();
+
         public void AnnuleerContract(Huurcontract contract)
         {
-            throw new NotImplementedException();
+            _context.Huurcontracten.Add(MapHuurcontract);
+            _context.SaveChanges();
         }
 
         public Huurcontract GeefContract(string id)
         {
-            throw new NotImplementedException();
+            return _context.Huurcontracten.FirstOrDefault(c => c.HuurcontractId == id);
         }
 
         public List<Huurcontract> GeefContracten(DateTime dtBegin, DateTime? dtEinde)

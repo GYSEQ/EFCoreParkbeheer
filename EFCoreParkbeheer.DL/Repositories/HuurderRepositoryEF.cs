@@ -35,7 +35,7 @@ namespace EFCoreParkbeheer.DL.Repositories
             throw new NotImplementedException();
         }
 
-        public Huurder VoegHuurderToe(Huurder h)
+        public void VoegHuurderToe(Huurder h)
         {
             throw new NotImplementedException();
         }

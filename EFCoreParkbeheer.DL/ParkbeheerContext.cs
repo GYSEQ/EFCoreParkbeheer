@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EFCoreParkbeheer.DL.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +12,17 @@ namespace EFCoreParkbeheer.DL
     {
         private string connectionString;
 
-        public ParkbeheerContext(string connectionString)
-        {
-            this.connectionString = connectionString;
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-        }
+        public DbSet<HuisEF> Huizen { get; set; }
+        public DbSet<HuurcontractEF> Huurcontracten { get; set; }
+        public DbSet<HuurderEF> Huurders { get; set; }
+        public DbSet<ParkEF> Parken { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(connectionString);
+            // optionsBuilder.UseLoggerFactory(factory)  //tie-up DbContext with LoggerFactory object
+            //.EnableSensitiveDataLogging()
+            optionsBuilder.UseSqlServer(@"Data Source=vizing;Initial Catalog=parkbeheer;Integrated Security=True;Trust Server Certificate=True");
         }
+
     }
 }
