@@ -19,10 +19,7 @@ namespace EFCoreParkbeheer.DL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // optionsBuilder.UseLoggerFactory(factory)  //tie-up DbContext with LoggerFactory object
-            //.EnableSensitiveDataLogging()
             optionsBuilder.UseSqlServer(@"Data Source=vizing;Initial Catalog=parkbeheer;Integrated Security=True;Trust Server Certificate=True");
         }
-
     }
 }

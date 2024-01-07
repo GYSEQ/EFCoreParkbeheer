@@ -1,5 +1,7 @@
 ﻿using EFCoreParkbeheer.BL.Interfaces;
 using EFCoreParkbeheer.BL.Model;
+using EFCoreParkbeheer.DL.Mappers;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +12,42 @@ namespace EFCoreParkbeheer.DL.Repositories
 {
     public class HuizenRepositoryEF : IHuizenRepository
     {
+        private ParkbeheerContext ctx = new ParkbeheerContext();
+
+        private void SaveAndClear()
+        {
+            ctx.SaveChanges();
+            ctx.ChangeTracker.Clear();
+        }
+
         public Huis GeefHuis(int id)
         {
-            throw new NotImplementedException();
+            return HuisMapper.ToDomain(ctx.Huizen.Where(x => x.HuisId == id)
+                .Include(x=>x.Park)
+                .AsNoTracking()
+                .FirstOrDefault());
         }
 
         public bool HeeftHuis(string straat, int nummer, Park park)
         {
-            throw new NotImplementedException();
+            return ctx.Huizen.All(h => h.Straat == straat && h.Nummer == nummer && h.Park.ParkId == park.Id);
         }
 
         public bool HeeftHuis(int id)
         {
-            throw new NotImplementedException();
+            return ctx.Huizen.Any(h => h.HuisId == id);
         }
 
         public void UpdateHuis(Huis huis)
         {
-            throw new NotImplementedException();
+            ctx.Huizen.Update(HuisMapper.ToEF(huis, ctx));
+            SaveAndClear();
         }
 
         public void VoegHuisToe(Huis h)
         {
-            throw new NotImplementedException();
+            ctx.Huizen.Add(HuisMapper.ToEF(h, ctx));
+            SaveAndClear();
         }
     }
 }

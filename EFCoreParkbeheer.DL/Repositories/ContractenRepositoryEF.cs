@@ -12,42 +12,57 @@ namespace EFCoreParkbeheer.DL.Repositories
 {
     public class ContractenRepositoryEF : IContractenRepository
     {
-        private ParkbeheerContext _context = new ParkbeheerContext();
+        private ParkbeheerContext ctx = new ParkbeheerContext();
+
+        private void SaveAndClear()
+        {
+            ctx.SaveChanges();
+            ctx.ChangeTracker.Clear();
+        }
 
         public void AnnuleerContract(Huurcontract contract)
         {
-            _context.Huurcontracten.Add(MapHuurcontract);
-            _context.SaveChanges();
+            ctx.Huurcontracten.Remove(HuurcontractMapper.ToEF(contract, ctx));
+            SaveAndClear();
         }
 
         public Huurcontract GeefContract(string id)
         {
-            return _context.Huurcontracten.FirstOrDefault(c => c.HuurcontractId == id);
+            return HuurcontractMapper.ToDomain(ctx.Huurcontracten.Find(id));
         }
 
         public List<Huurcontract> GeefContracten(DateTime dtBegin, DateTime? dtEinde)
         {
-            throw new NotImplementedException();
+            var query = ctx.Huurcontracten.AsQueryable();
+
+            query = query.Where(contract => contract.StartDatum >= dtBegin);
+
+            if (dtEinde.HasValue)
+            {
+                query = query.Where(contract => contract.StartDatum <= dtEinde.Value);
+            }
+
+            return query.Select(HuurcontractMapper.ToDomain).ToList();
         }
 
         public bool HeeftContract(DateTime startDatum, int huurderid, int huisid)
         {
-            throw new NotImplementedException();
+            return ctx.Huurcontracten.All(contract => contract.StartDatum == startDatum && contract.HuurderId == huurderid && contract.HuisId == huisid);
         }
 
         public bool HeeftContract(string id)
         {
-            throw new NotImplementedException();
+            return ctx.Huurcontracten.Any(contract => contract.HuurcontractId == id);
         }
 
         public void UpdateContract(Huurcontract contract)
         {
-            throw new NotImplementedException();
+            ctx.Huurcontracten.Update(HuurcontractMapper.ToEF(contract, ctx));
         }
 
         public void VoegContractToe(Huurcontract contract)
         {
-            throw new NotImplementedException();
+           ctx.Huurcontracten.Add(HuurcontractMapper.ToEF(contract, ctx));
         }
     }
 }
