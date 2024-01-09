@@ -47,7 +47,7 @@ namespace EFCoreParkbeheer.DL.Repositories
 
         public bool HeeftContract(DateTime startDatum, int huurderid, int huisid)
         {
-            return ctx.Huurcontracten.All(contract => contract.StartDatum == startDatum && contract.HuurderId == huurderid && contract.HuisId == huisid);
+            return ctx.Huurcontracten.Any(contract => contract.StartDatum == startDatum && contract.HuurderId == huurderid && contract.HuisId == huisid);
         }
 
         public bool HeeftContract(string id)
@@ -58,11 +58,13 @@ namespace EFCoreParkbeheer.DL.Repositories
         public void UpdateContract(Huurcontract contract)
         {
             ctx.Huurcontracten.Update(HuurcontractMapper.ToEF(contract, ctx));
+            SaveAndClear();
         }
 
         public void VoegContractToe(Huurcontract contract)
         {
            ctx.Huurcontracten.Add(HuurcontractMapper.ToEF(contract, ctx));
+           SaveAndClear();
         }
     }
 }

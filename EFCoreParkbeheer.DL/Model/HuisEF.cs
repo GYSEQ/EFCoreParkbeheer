@@ -10,6 +10,13 @@ namespace EFCoreParkbeheer.DL.Model
 {
     public class HuisEF
     {
+        public HuisEF(string straat, int nummer, bool actief)
+        {
+            Straat = straat;
+            Nummer = nummer;
+            Actief = actief;
+        }
+
         public HuisEF(int huisId, string straat, int nummer, bool actief, string parkId, ParkEF park)
         {
             HuisId = huisId;

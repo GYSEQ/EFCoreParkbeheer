@@ -22,10 +22,12 @@ namespace EFCoreParkbeheer.BL.Services
         {
             try
             {
-                if (repo.HeeftHuis(straat, nummer, park)) throw new BeheerderException("voeghuistoe");
+                if (repo.HeeftHuis(straat, nummer, park) == true)
+                {
+                    throw new BeheerderException("voeghuistoe");
+                }
                 Huis h = new Huis(straat, nummer, park);
                 repo.VoegHuisToe(h);
-
             }
             catch (Exception ex)
             {

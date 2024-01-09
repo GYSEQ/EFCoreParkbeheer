@@ -30,7 +30,7 @@ namespace EFCoreParkbeheer.DL.Repositories
 
         public bool HeeftHuis(string straat, int nummer, Park park)
         {
-            return ctx.Huizen.All(h => h.Straat == straat && h.Nummer == nummer && h.Park.ParkId == park.Id);
+            return ctx.Huizen.Any(h => h.Straat == straat && h.Nummer == nummer && h.Park.ParkId == park.Id);
         }
 
         public bool HeeftHuis(int id)

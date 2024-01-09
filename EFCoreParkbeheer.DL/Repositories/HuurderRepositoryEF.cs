@@ -38,7 +38,7 @@ namespace EFCoreParkbeheer.DL.Repositories
 
         public bool HeeftHuurder(string naam, Contactgegevens contact)
         {
-            return ctx.Huurders.All(h => h.Naam == naam && h.Email == contact.Email && h.Telefoon == contact.Tel && h.Adres == contact.Adres);
+            return ctx.Huurders.Any(h => h.Naam == naam && h.Email == contact.Email && h.Telefoon == contact.Tel && h.Adres == contact.Adres);
         }
 
         public bool HeeftHuurder(int id)

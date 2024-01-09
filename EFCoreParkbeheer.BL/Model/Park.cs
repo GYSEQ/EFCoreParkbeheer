@@ -19,6 +19,7 @@ namespace EFCoreParkbeheer.BL.Model
         {
             _huis = huis;
         }
+
         public Park(string id, string naam, string locatie)
         {
             ZetId(id);

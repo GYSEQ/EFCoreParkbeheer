@@ -9,6 +9,10 @@ namespace EFCoreParkbeheer.DL.Model
 {
     public class HuurcontractEF
     {
+        public HuurcontractEF()
+        {
+        }
+
         public HuurcontractEF(string huurcontractId, DateTime startDatum, int aantalDagen, int huisId, HuisEF huis, int huurderId, HuurderEF huurder)
         {
             HuurcontractId = huurcontractId;
